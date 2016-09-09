@@ -1,27 +1,8 @@
-# velas
+##Notas
 
-> Web de velas by Frostq
+Página web destinada a la creacion de notas. No hace falta registrarse para escribir por lo que cualquiera puede escribir notas y ver las de los demás. 
 
-## Build Setup
+La página web esta hecha usando la tecnología de Vue.js, Webpack y Firebase para hostear la página y almacenar en la base de datos todas las notas. 
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Puedes ver la **DEMO** en funcionamiento aqui:
+<a href="http://codepen.io/Frostq/full/VjEZqm/">https://notes-9d247.firebaseapp.com</a>
