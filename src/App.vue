@@ -26,17 +26,17 @@ html{
   font-family: sans-serif;
 }
 body{
-  background: #eee;
+  background: #C0D2D7;
   min-height: 100%;
 }
 body > div{
   padding: 16px 16px 50px;
-  min-height: 100vh;
-  background: #eee;
+  min-height: 88vh;
+  background: #C0D2D7;
   position: relative;
   margin-bottom: 50px;
   z-index: 1;
-  box-shadow: 0 2px 5px #111;
+
 }
 footer{
   background: #333;

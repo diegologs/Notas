@@ -8,9 +8,9 @@
   </div>
 </template>
 <script>
-import Firebase from 'firebase'
 import Masonry from 'masonry-layout'
 import Note from './Note'
+import noteRepository from '../../data/NoteRepository'
 export default {
   components: {
     Note
@@ -20,21 +20,33 @@ export default {
       notes: []
     }
   },
+  watch: {
+    'notes': { // watch the notes array for changes
+      handler () {
+        this.masonry.reloadItems()
+        this.masonry.layout()
+      },
+      deep: true // we also want to watch changed inside individual notes
+    }
+  },
   ready () {
-    let masonry = new Masonry(this.$els.notes, {
+    this.masonry = new Masonry(this.$els.notes, {
       itemSelector: '.note',
       columnWidth: 240,
       gutter: 16,
       fitWidth: true
     })
-    let firebase = new Firebase('https://notes-9d247.firebaseio.com/')
-    firebase.child('notes').on('child_added', (snapshot) => {
-      let note = snapshot.val()
-      this.notes.unshift(note)
-      this.$nextTick(() => { // the new note hasn't been rendered yet, but in the nextTick, it will be rendered
-        masonry.reloadItems()
-        masonry.layout()
-      })
+    noteRepository.on('added', (note) => {
+      this.notes.unshift(note) // add the note to the beginning of the array
+    })
+    noteRepository.on('changed', ({key, title, content}) => {
+      let outdatedNote = noteRepository.find(this.notes, key) // get specific note from the notes in our VM by key
+      outdatedNote.title = title
+      outdatedNote.content = content
+    })
+    noteRepository.on('removed', ({key}) => {
+      let noteToRemove = noteRepository.find(this.notes, key) // get specific note from the notes in our VM by key
+      this.notes.$remove(noteToRemove) // remove note from notes array
     })
   }
 }
