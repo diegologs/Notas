@@ -11,6 +11,7 @@
 import Firebase from 'firebase'
 import Masonry from 'masonry-layout'
 import Note from './Note'
+import noteRepository from '../../data/NoteRepository'
 export default {
   components: {
     Note

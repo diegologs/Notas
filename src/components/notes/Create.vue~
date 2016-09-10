@@ -1,43 +1,40 @@
 <template>
   <form class="create-note" v-on:submit.prevent="createNote()">
-    <input name="title" v-model="title" placeholder="Title"/>
-    <textarea name="content" v-model="content" placeholder="Text goes here..." rows="3">
+    <input name="title" v-model="title" placeholder="Titulo"/>
+    <textarea name="content" v-model="content" placeholder="Texto de la notaº" rows="3">
     </textarea>
     <button type="submit">+</button>
   </form>
 </template>
 
 <script>
-  import Firebase from 'firebase'
-  let firebase = new Firebase('https://notes-9d247.firebaseio.com/')
+import noteRepository from '../../data/NoteRepository'
 
-  export default {
-    data () {
-      return {
-        title: '',
-        content: ''
-      }
-    },
-    methods: {
-      createNote () {
-        if (this.title.trim() || this.content.trim()) {
-          firebase.child('notes').push({title: this.title, content: this.content}, (err) => {
-            if (err) {
-              throw err
-            }
-            this.title = ''
-            this.content = ''
-          })
-        }
+export default {
+  data () {
+    return {
+      title: '',
+      content: ''
+    }
+  },
+  methods: {
+    createNote () {
+      if (this.title.trim() || this.content.trim()) {
+        noteRepository.create({title: this.title, content: this.content}, (err) => {
+          if (err) throw err // TODO: inform the user
+          this.title = ''
+          this.content = ''
+        })
       }
     }
   }
+}
 </script>
 
 <style>
   form.create-note{
     position: relative;
-    width: 480px;
+    width: 80%;
     margin: 15px auto;
     background: #fff;
     padding: 15px;
@@ -59,10 +56,12 @@
     color: #fff;
     border: none;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     cursor: pointer;
     outline: none;
+ font-weight: bold;
+font-size:30px;
   }
 </style>
